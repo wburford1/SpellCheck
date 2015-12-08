@@ -16,6 +16,7 @@ public class SpellCheck{
         }
         else{
           //do stuff to correct
+          writer.println("You misspelled "+misspelt.get(x));
         }
       }
       writer.close();
