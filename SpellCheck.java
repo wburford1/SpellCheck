@@ -1,4 +1,5 @@
 ///Users/william_burford/GitHub/SpellCheck/wordsEn.txt
+///Users/william_burford/GitHub/SpellCheck/badwords.txt
 
 //add your local reference to wordsEn.txt above so you can easily copy and paste below
 import java.util.*;
@@ -6,12 +7,22 @@ import java.io.*;
 public class SpellCheck{
   public static void main(String[]args){
     try{
-      Trie dictionary = readFile("REPLACE");//please set this to "REPLACE" before pushing
-      //continue writing code here
+      PrintWriter writer = new PrintWriter("correctedWords.txt","UTF-8");
+      Trie dictionaryTrie = readFileToTrie("REPLACE");//please set this to "REPLACE" before pushing
+      ArrayList<String> misspelt = readFileToArrayList("REPLACE");
+      for(int x=0;x<misspelt.size();x++){
+        if (dictionaryTrie.search(misspelt.get(x))) {//if in dictionary, put same word in correct list
+          writer.println(misspelt.get(x));
+        }
+        else{
+          //do stuff to correct
+        }
+      }
+      writer.close();
     }catch(IOException e){};
   }
-  
-  public static Trie readFile(String fileName) throws IOException {
+
+  public static Trie readFileToTrie(String fileName) throws IOException {
     BufferedReader br = new BufferedReader(new FileReader(fileName));
     try {
         String line = br.readLine();
@@ -22,6 +33,21 @@ public class SpellCheck{
             line = br.readLine();
         }
         return dictionary;
+    } finally {
+        br.close();
+    }
+  }
+  public static ArrayList<String> readFileToArrayList(String fileName) throws IOException {
+    BufferedReader br = new BufferedReader(new FileReader(fileName));
+    try {
+        String line = br.readLine();
+        ArrayList<String> arrList = new ArrayList<String>();
+
+        while (line != null) {
+            arrList.add(line);
+            line = br.readLine();
+        }
+        return arrList;
     } finally {
         br.close();
     }
