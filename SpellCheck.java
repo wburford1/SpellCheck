@@ -16,7 +16,6 @@ public class SpellCheck{
         }
         else{
           //do stuff to correct
-          writer.println("You misspelled "+misspelt.get(x));
         }
       }
       writer.close();
@@ -52,5 +51,15 @@ public class SpellCheck{
     } finally {
         br.close();
     }
+  }
+    private int wordDistance(String word1,String word2){
+      int dist=0;
+      if(word1.equalsIgnoreCase(word2)){return 0;}
+      dist= Math.abs(word1.length()-word2.length())+dist;
+      for(int i=0; i<word1.length()-1;i++)
+      {
+        if(word1.charAt(i)==word2.charAt(i)){dist++;}
+      }
+      return dist;
   }
 }
