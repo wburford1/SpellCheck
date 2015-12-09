@@ -8,8 +8,8 @@ public class SpellCheck{
   public static void main(String[]args){
     try{
       PrintWriter writer = new PrintWriter("correctedWords.txt","UTF-8");
-      Trie dictionaryTrie = readFileToTrie("REPLACE");//please set this to "REPLACE" before pushing
-      Object[] temp = readFileToArrayList("REPLACE").toArray();
+      Trie dictionaryTrie = readFileToTrie("/Users/william_burford/GitHub/SpellCheck/wordsEn.txt");//please set this to "REPLACE" before pushing
+      Object[] temp = readFileToArrayList("/Users/william_burford/GitHub/SpellCheck/wordsEn.txt").toArray();
       String[] dictionaryArr = Arrays.copyOf(temp,temp.length,String[].class);
       String[] dictionaryLength = Arrays.copyOf(dictionaryArr,dictionaryArr.length);
       Arrays.sort(dictionaryLength, new CompStrLen());
@@ -23,11 +23,13 @@ public class SpellCheck{
         }
       }
 
-      ArrayList<String> misspelt = readFileToArrayList("REPLACE");
+      ArrayList<String> misspelt = readFileToArrayList("/Users/william_burford/GitHub/SpellCheck/badwords.txt");
+      System.out.println("misspelt.size = "+misspelt.size());
 
       //this is where time should begin
       for(int x=0;x<misspelt.size();x++){
         String word = misspelt.get(x);
+        System.out.println("Testing word: "+word);
         if (dictionaryTrie.search(word)) {//if in dictionary, put same word in correct list
           writer.println(word);
         }
@@ -39,8 +41,19 @@ public class SpellCheck{
           }
           else{
             int shortestLoc = lengthLocations[word.length()-2];
-            int longestLoc = lengthLocations[word.length()+2];//limit the words we check against to just +/- 2 letters
+            int longestLoc = lengthLocations[word.length()+3]-1;//limit the words we check against to just +/- 2 letters
 
+            int minDist = Integer.MAX_VALUE;
+            String correction = "";
+            for (int counter=shortestLoc; counter<longestLoc; counter++) {
+              int dist = Levenshtein.distance(word,dictionaryLength[counter]);
+              if (dist<minDist) {
+                minDist=dist;
+                correction = dictionaryLength[counter];
+              }
+            }
+            writer.println(correction);
+            correctionFound=true;
             //do stuff to correct
           }
 
