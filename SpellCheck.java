@@ -9,6 +9,11 @@ public class SpellCheck{
     try{
       PrintWriter writer = new PrintWriter("correctedWords.txt","UTF-8");
       Trie dictionaryTrie = readFileToTrie("REPLACE");//please set this to "REPLACE" before pushing
+      Object[] temp = readFileToArrayList("REPLACE").toArray();
+      String[] dictionaryArr = Arrays.copyOf(temp,temp.length,String[].class);
+      String[] dictionaryLength = Arrays.copyOf(dictionaryArr,dictionaryArr.length);
+      Arrays.sort(dictionaryLength, new CompStrLen());
+
       ArrayList<String> misspelt = readFileToArrayList("REPLACE");
       for(int x=0;x<misspelt.size();x++){
         if (dictionaryTrie.search(misspelt.get(x))) {//if in dictionary, put same word in correct list
@@ -61,5 +66,17 @@ public class SpellCheck{
         if(word1.charAt(i)==word2.charAt(i)){dist++;}
       }
       return dist;
+  }
+}
+
+class CompStrLen implements Comparator<String> {
+  public int compare(String o1, String o2) {
+    if (o1.length() > o2.length()) {
+      return 1;
+    } else if (o1.length() < o2.length()) {
+      return -1;
+    } else {
+      return 0;
+    }
   }
 }
