@@ -13,14 +13,40 @@ public class SpellCheck{
       String[] dictionaryArr = Arrays.copyOf(temp,temp.length,String[].class);
       String[] dictionaryLength = Arrays.copyOf(dictionaryArr,dictionaryArr.length);
       Arrays.sort(dictionaryLength, new CompStrLen());
+      int[] lengthLocations = new int[dictionaryLength[dictionaryLength.length-1].length()+1];
+      //lengthLocations stores location of first word of each length
+      int len = 0;
+      for(int x=0;x<dictionaryLength.length;x++){
+        if (dictionaryLength[x].length()>len) {
+          len++;
+          lengthLocations[len] = x;
+        }
+      }
 
       ArrayList<String> misspelt = readFileToArrayList("REPLACE");
+
+      //this is where time should begin
       for(int x=0;x<misspelt.size();x++){
-        if (dictionaryTrie.search(misspelt.get(x))) {//if in dictionary, put same word in correct list
-          writer.println(misspelt.get(x));
+        String word = misspelt.get(x);
+        if (dictionaryTrie.search(word)) {//if in dictionary, put same word in correct list
+          writer.println(word);
         }
         else{
-          //do stuff to correct
+          boolean correctionFound = false;
+          if (dictionaryTrie.search(word.concat("e"))) {
+            writer.println(word.concat("e"));
+            correctionFound = true;
+          }
+          else{
+            int shortestLoc = lengthLocations[word.length()-2];
+            int longestLoc = lengthLocations[word.length()+2];//limit the words we check against to just +/- 2 letters
+
+            //do stuff to correct
+          }
+
+          if (!correctionFound) {
+            writer.println("!!! "+word);
+          }
         }
       }
       writer.close();
