@@ -8,8 +8,8 @@ public class SpellCheck{
   public static void main(String[]args){
     try{
       PrintWriter writer = new PrintWriter("correctedWords.txt","UTF-8");
-      Trie dictionaryTrie = readFileToTrie("/Users/william_burford/GitHub/SpellCheck/wordsEn.txt");//please set this to "REPLACE" before pushing
-      Object[] temp = readFileToArrayList("/Users/william_burford/GitHub/SpellCheck/wordsEn.txt").toArray();
+      Trie dictionaryTrie = readFileToTrie("REPLACE");//please set this to "REPLACE" before pushing
+      Object[] temp = readFileToArrayList("REPLACE").toArray();
       String[] dictionaryArr = Arrays.copyOf(temp,temp.length,String[].class);
       String[] dictionaryLength = Arrays.copyOf(dictionaryArr,dictionaryArr.length);
       Arrays.sort(dictionaryLength, new CompStrLen());
@@ -23,7 +23,7 @@ public class SpellCheck{
         }
       }
 
-      ArrayList<String> misspelt = readFileToArrayList("/Users/william_burford/GitHub/SpellCheck/badwords.txt");
+      ArrayList<String> misspelt = readFileToArrayList("REPLACE");
       System.out.println("misspelt.size = "+misspelt.size());
 
       //this is where time should begin

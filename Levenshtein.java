@@ -11,8 +11,9 @@ public class Levenshtein {
         b = b.toLowerCase();
         // i == 0
         int [] costs = new int [b.length() + 1];
-        for (int j = 0; j < costs.length; j++)
+        for (int j = 0; j < costs.length; j++) {
             costs[j] = j;
+        }
         for (int i = 1; i <= a.length(); i++) {
             // j == 0; nw = lev(i - 1, j)
             costs[0] = i;
