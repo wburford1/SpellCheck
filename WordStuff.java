@@ -3,7 +3,7 @@ import java.io.*;
 public class WordStuff{
   public static void main(String[]args){
     try{
-    PrintWriter writer = new PrintWriter("correctedWordsFreq.txt","UTF-8");
+    PrintWriter writer = new PrintWriter("wordsFreqFinal.txt","UTF-8");
     Object[] temp = readFileToArrayList("/Users/william_burford/GitHub/SpellCheck/wordFreq2.txt").toArray();
     String[] dictionaryArr = Arrays.copyOf(temp,temp.length,String[].class);
     String[] copyArr = new String[dictionaryArr.length];
@@ -20,7 +20,7 @@ public class WordStuff{
       }
       if (!duplicate) {
         copyArr[x]=dictionaryArr[x];
-        writer.println(dictionaryArr[x]);
+        writer.println(dictionaryArr[x].substring(6));
       }
     }
     System.out.println("Number = "+numDups);
