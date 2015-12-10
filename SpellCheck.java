@@ -27,6 +27,7 @@ public class SpellCheck{
       System.out.println("misspelt.size = "+misspelt.size());
 
       //this is where time should begin
+      long startTime = System.nanoTime();
       for(int x=0;x<misspelt.size();x++){
         String word = misspelt.get(x);
         System.out.println("Testing word: "+word);
@@ -62,6 +63,8 @@ public class SpellCheck{
           }
         }
       }
+      long endTime = System.nanoTime();
+      System.out.println("Time elapsed = "+(endTime-startTime)/1000000+"ms");
       writer.close();
     }catch(IOException e){};
   }
