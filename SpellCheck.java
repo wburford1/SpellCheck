@@ -1,4 +1,5 @@
 ///Users/william_burford/GitHub/SpellCheck/wordsEn.txt
+///Users/william_burford/GitHub/SpellCheck/wordsFreqFinal.txt
 ///Users/william_burford/GitHub/SpellCheck/badwords.txt
 
 //add your local reference to wordsEn.txt above so you can easily copy and paste below
@@ -15,6 +16,9 @@ public class SpellCheck{
       Arrays.sort(dictionaryLength, new CompStrLen());
       int[] lengthLocations = new int[dictionaryLength[dictionaryLength.length-1].length()+1];
       //lengthLocations stores location of first word of each length
+      Map<String,Integer> wordFreqMap = readFileToMap("REPLACE");
+      System.out.println("wordFreqMap(leave) = "+wordFreqMap.get("leave"));
+
       int len = 0;
       for(int x=0;x<dictionaryLength.length;x++){
         if (dictionaryLength[x].length()>len) {
@@ -99,15 +103,22 @@ public class SpellCheck{
         br.close();
     }
   }
-    private int wordDistance(String word1,String word2){
-      int dist=0;
-      if(word1.equalsIgnoreCase(word2)){return 0;}
-      dist= Math.abs(word1.length()-word2.length())+dist;
-      for(int i=0; i<word1.length()-1;i++)
-      {
-        if(word1.charAt(i)==word2.charAt(i)){dist++;}
-      }
-      return dist;
+  public static Map<String,Integer> readFileToMap(String fileName) throws IOException {
+    BufferedReader br = new BufferedReader(new FileReader(fileName));
+    try {
+        String line = br.readLine();
+        Map<String,Integer> map = new HashMap<String,Integer>();
+        int rank = 1;
+
+        while (line != null) {
+            map.put(line,new Integer(rank));
+            rank++;
+            line = br.readLine();
+        }
+        return map;
+    } finally {
+        br.close();
+    }
   }
 }
 
