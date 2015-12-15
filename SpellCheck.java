@@ -8,16 +8,29 @@ import java.io.*;
 public class SpellCheck{
   public static void main(String[]args){
     try{
+      String computer = "REPLACE";//please set this to "REPLACE" before pushing
+      String pathDictionary = "";
+      String pathWordFreq = "";
+      String pathBadwords = "";
+      if (computer.equalsIgnoreCase("will")) {
+        pathDictionary = "/Users/william_burford/GitHub/SpellCheck/wordsEn.txt";
+        pathWordFreq = "/Users/william_burford/GitHub/SpellCheck/wordsFreqFinal.txt";
+        pathBadwords = "/Users/william_burford/GitHub/SpellCheck/badwords.txt";
+      }
+      else{
+        System.out.println("Error: Not a recognized computer");
+        System.exit(1);
+      }
+
       PrintWriter writer = new PrintWriter("correctedWords.txt","UTF-8");
-      Trie dictionaryTrie = readFileToTrie("REPLACE");//please set this to "REPLACE" before pushing
-      Object[] temp = readFileToArrayList("REPLACE").toArray();
+      Trie dictionaryTrie = readFileToTrie(pathDictionary);
+      Object[] temp = readFileToArrayList(pathDictionary).toArray();
       String[] dictionaryArr = Arrays.copyOf(temp,temp.length,String[].class);
       String[] dictionaryLength = Arrays.copyOf(dictionaryArr,dictionaryArr.length);
       Arrays.sort(dictionaryLength, new CompStrLen());
       int[] lengthLocations = new int[dictionaryLength[dictionaryLength.length-1].length()+1];
       //lengthLocations stores location of first word of each length
-      Map<String,Integer> wordFreqMap = readFileToMap("REPLACE");
-      System.out.println("wordFreqMap(leave) = "+wordFreqMap.get("leave"));
+      Map<String,Integer> wordFreqMap = readFileToMap(pathWordFreq);
 
       int len = 0;
       for(int x=0;x<dictionaryLength.length;x++){
@@ -27,7 +40,7 @@ public class SpellCheck{
         }
       }
 
-      ArrayList<String> misspelt = readFileToArrayList("REPLACE");
+      ArrayList<String> misspelt = readFileToArrayList(pathBadwords);
       System.out.println("misspelt.size = "+misspelt.size());
 
       //this is where time should begin
@@ -42,6 +55,7 @@ public class SpellCheck{
           boolean correctionFound = false;
           if (dictionaryTrie.search(word.concat("e"))) {
             writer.println(word.concat("e"));
+            System.out.println("Corrected word: "+word.concat("e"));
             correctionFound = true;
           }
           else{
@@ -58,6 +72,7 @@ public class SpellCheck{
               }
             }
             writer.println(correction);
+            System.out.println("Corrected word: "+correction);
             correctionFound=true;
             //do stuff to correct
           }
