@@ -63,13 +63,28 @@ public class SpellCheck{
             int longestLoc = lengthLocations[word.length()+3]-1;//limit the words we check against to just +/- 2 letters
 
             int minDist = Integer.MAX_VALUE;
-            String correction = "";
+            ArrayList<String> corrections = new ArrayList<String>();
             for (int counter=shortestLoc; counter<longestLoc; counter++) {
-              int dist = Levenshtein.distance(word,dictionaryLength[counter]);
+              //int dist = Levenshtein.distance(word,dictionaryLength[counter]);
+              //int dist = Levenshtein.computeLevenshteinDistance(word,dictionaryLength[counter]);
+              int dist = Levenshtein.levenshteinDistance(word,dictionaryLength[counter]);
               if (dist<minDist) {
                 minDist=dist;
-                correction = dictionaryLength[counter];
+                corrections.clear();
+                corrections.add(dictionaryLength[counter]);
               }
+              else if (dist==minDist) {
+                corrections.add(dictionaryLength[counter]);
+              }
+            }
+            String correction = "";
+            if (corrections.size()>1) {
+              for (String single: corrections) {
+                correction = correction.concat(single+" ");
+              }
+            }
+            else{
+              correction = corrections.get(0);
             }
             writer.println(correction);
             System.out.println("Corrected word: "+correction);
