@@ -58,7 +58,20 @@ public class SpellCheck{
             System.out.println("Corrected word: "+word.concat("e"));
             correctionFound = true;
           }
-          else{
+          if (!correctionFound && word.charAt(word.length()-1)=='s') {
+            String check = word.substring(0,word.length()-1);
+            if (dictionaryTrie.search(check.concat("es"))) {
+              writer.println(check.concat("es"));
+              System.out.println("Corrected word: "+check.concat("es"));
+              correctionFound = true;
+            }
+            else if (check.charAt(check.length()-1)=='y'&&dictionaryTrie.search(check.substring(0,check.length()-1).concat("ies"))) {
+              writer.println(check.substring(0,check.length()-1).concat("ies"));
+              System.out.println("Corrected word: "+check.substring(0,check.length()-1).concat("ies"));
+              correctionFound = true;
+            }
+          }
+          if(!correctionFound){
             int shortestLoc = lengthLocations[word.length()-2];
             int longestLoc = lengthLocations[word.length()+3]-1;//limit the words we check against to just +/- 2 letters
 
@@ -79,7 +92,8 @@ public class SpellCheck{
             }
             String correction = "";
             if (corrections.size()>1) {
-              for (String single: corrections) {
+              for (int var = 0; var<corrections.size();var++) {
+                String single = corrections.get(var);
                 correction = correction.concat(single+" ");
               }
             }
