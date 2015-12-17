@@ -68,7 +68,7 @@ public class SpellCheck{
       //this is where time should begin
       long startTime = System.nanoTime();
       for(int x=0;x<misspelt.size();x++){
-        String word = misspelt.get(x);
+        String word = misspelt.get(x).toLowerCase();
         System.out.println("Testing word: "+word);
         if (dictionaryTrie.search(word)) {//if in dictionary, put same word in correct list
           writer.println(word);
