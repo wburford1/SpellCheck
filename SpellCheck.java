@@ -19,6 +19,16 @@ public class SpellCheck{
         pathBadwords = "/Users/william_burford/GitHub/SpellCheck/badwords.txt";
         pathMatrix = "/Users/william_burford/GitHub/SpellCheck/AlphabetMatrix.txt";
       }
+       
+       /*(computer.equalsIgnoreCase("sid")){
+          
+          pathDictionary = "/Users/SiddharthKucheria/Desktop/SpellCheck/wordsEn.txt";
+          pathWordFreq = "/Users/SiddharthKucheria/Desktop/SpellCheck/wordsFreqFinal.txt";
+          pathBadwords = "/Users/SiddharthKucheria/Desktop/SpellCheck/badwords.txt";
+          pathMatrix = "/Users/SiddharthKucheria/Desktop/SpellCheck/AlphabetMatrix.txt";
+          
+      }
+        */
       else{
         System.out.println("Error: Not a recognized computer");
         System.exit(1);
@@ -214,27 +224,63 @@ public class SpellCheck{
       BufferedReader buffer = new BufferedReader(new FileReader(fileName));
       int[][] alph2D = new int[26][26];
       String line;
-      int row = 0;
-      int size=0;
-
-      while ((line = buffer.readLine()) != null) {
-          String[] vals = line.trim().split("\\s+");
-
-          if (alph2D == null) {
-              size = vals.length;
-              int log10 = (int) Math.floor(Math.log10(size * size)) + 1;
-//              alph2D = String.format("%%%dd", log10);
+      int row = 26;
+      int size=26;
+      String currentWord;
+//      while ((line = buffer.readLine()) != null) {
+      
+          /*
+           currentWord = line;
+          for(int x=0; x<line.length(); x++){
+              if(line.charAt(x)!=","){
+                  currentWord = currentWord.concat(testAgainst.substring(x,x+1));
+              }
           }
-
+      
+      
+  
+          String wholeLine  =
+          String[] vals = line.trim().split("\\s+");
+          size = vals.length;
+          
+          /*
+           if (alph2D == null) {
+           size = vals.length;
+           int log10 = (int) Math.floor(Math.log10(size * size)) + 1;
+           alph2D = String.format("%%%dd", log10);
+           }
+           
+          
           for (int col = 0; col < size; col++) {
               alph2D[row][col] = Integer.parseInt(vals[col]);
           }
-
+          
           row++;
       }
+      */
       return alph2D;
   }
-
+    
+    /*
+      while ((line = buffer.readLine()) != null) {
+          String[] vals = line.trim().split("\\s+");
+          
+//          if (matrix == null) {
+              size = vals.length;
+              matrix = new int[26][26];
+//          }
+          
+          for (int col = 0; col < size; col++) {
+              matrix[row][col] = Integer.parseInt(vals[col]);
+          }
+          
+          row++;
+      }
+      
+      return matrix;
+  }
+     */
+    
   public static Map<String,Integer> readFileToMap(String fileName) throws IOException {
     BufferedReader br = new BufferedReader(new FileReader(fileName));
     try {
@@ -265,3 +311,8 @@ class CompStrLen implements Comparator<String> {
     }
   }
 }
+
+
+
+
+
