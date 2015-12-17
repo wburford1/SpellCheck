@@ -168,34 +168,30 @@ public class SpellCheck{
     }
   }
 
-    public static int[][] readFileTo2DArray(String fileName) throws IOException{
-        File inFile = new File(filename);
-        Scanner in = new Scanner(inFile);
-        int[][] alph2d = new int[25][25];
-        in.useDelimiter("[/n]");
-
-        String line = "";
-        int lineCount = 0;
-
-        while (in.hasNextLine()) {
-            Scanner lineIn = new Scanner(line);
-            if(lineIn.hasNext()) {
-                String[] s = lineIn.nextLine().split(" ");
-                alph2d = new int[s.length];
-                for (int i = 0; i < s.length; i++) {
-                    alph2d[i] = new int[i];
-                    alph2d[0][i] = Integer.parseInt(s[i]);
-                }
-            }
-            for (int j = 1; j < alph2d.length; j++) {
-                String[] s = lineIn.nextLine().split(" ");
-                for (int i = 0; i < s.length; i++) {
-                    alph2d[j][i] = Integer.parseInt(s[i]);
-                }
-            }
-            return alph2d;
-        }
-    }
+  public static int[][] readFileTo2DArray(String fileName) throws IOException{
+      BufferedReader buffer = new BufferedReader(new FileReader(filename));
+      int[][] alph2D = new int[25][25]
+      String line;
+      int row = 0;
+      int size=0;
+      
+      while ((line = buffer.readLine()) != null) {
+          String[] vals = line.trim().split("\\s+");
+          
+          if (alph2D == null) {
+              size = vals.length;
+              log10 = (int) Math.floor(Math.log10(size * size)) + 1;
+//              alph2D = String.format("%%%dd", log10);
+          }
+          
+          for (int col = 0; col < size; col++) {
+              alph2D[row][col] = Integer.parseInt(vals[col]);
+          }
+          
+          row++;
+      }
+      return alph2D;
+  }
 
   public static Map<String,Integer> readFileToMap(String fileName) throws IOException {
     BufferedReader br = new BufferedReader(new FileReader(fileName));
@@ -227,3 +223,6 @@ class CompStrLen implements Comparator<String> {
     }
   }
 }
+
+
+
