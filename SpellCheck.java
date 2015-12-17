@@ -43,7 +43,9 @@ public class SpellCheck{
       }
 
       int[][] costsMatrix = readFileTo2DArray(pathMatrix);
-      System.out.println(Arrays.toString(costsMatrix));
+      for (int[] arr: costsMatrix) {
+        System.out.println(Arrays.toString(arr));
+      }
 
       ArrayList<String> misspelt = readFileToArrayList(pathBadwords);
       System.out.println("misspelt.size = "+misspelt.size());
@@ -169,25 +171,25 @@ public class SpellCheck{
   }
 
   public static int[][] readFileTo2DArray(String fileName) throws IOException{
-      BufferedReader buffer = new BufferedReader(new FileReader(filename));
-      int[][] alph2D = new int[25][25]
+      BufferedReader buffer = new BufferedReader(new FileReader(fileName));
+      int[][] alph2D = new int[26][26];
       String line;
       int row = 0;
       int size=0;
-      
+
       while ((line = buffer.readLine()) != null) {
           String[] vals = line.trim().split("\\s+");
-          
+
           if (alph2D == null) {
               size = vals.length;
-              log10 = (int) Math.floor(Math.log10(size * size)) + 1;
+              int log10 = (int) Math.floor(Math.log10(size * size)) + 1;
 //              alph2D = String.format("%%%dd", log10);
           }
-          
+
           for (int col = 0; col < size; col++) {
               alph2D[row][col] = Integer.parseInt(vals[col]);
           }
-          
+
           row++;
       }
       return alph2D;
@@ -223,6 +225,3 @@ class CompStrLen implements Comparator<String> {
     }
   }
 }
-
-
-
