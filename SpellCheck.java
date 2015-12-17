@@ -115,6 +115,46 @@ public class SpellCheck{
               }
               if (round2.size()>1) {
                 correction = round2.toString();
+                ArrayList<String> round3 = new ArrayList<String>();
+                for (int wow = 0; wow<round2.size(); wow++) {
+                  if (wordFreqMap.containsKey(round2.get(wow))) {
+                    round3.add(round2.get(wow));
+                  }
+                }
+                if (round3.size()==1) {
+                  correction = round3.get(0);
+                }
+                else if (round3.size()>1) {
+                  System.out.println("UNTESTED REGION");
+                  int minRank = Integer.MAX_VALUE;
+                  String minWord = round3.get(0);
+                  for (int boom = 0; boom<round3.size(); boom++) {
+                    int rank = wordFreqMap.get(round3.get(boom)).intValue();
+                    if (rank<minRank) {
+                      minRank = rank;
+                      minWord = round3.get(boom);
+                    }
+                  }
+                  correction = minWord;
+                }
+                else{//this part is the sketchy part that is basically complete guess
+                  System.out.println("sketchy part");
+                  int wordLen = word.length();
+                  int closest = 3;
+                  String closestWord = round2.get(0);
+                  for (int blah=0; blah<round2.size(); blah++) {
+                    String shrek = round2.get(blah);
+                    if (shrek.length()==wordLen) {
+                      correction = shrek;
+                      break;
+                    }
+                    else if(Math.abs(shrek.length()-wordLen)<closest){
+                      closest = Math.abs(shrek.length()-wordLen);
+                      closestWord = shrek;
+                    }
+                  }
+                  correction = closestWord;
+                }
               }
               else{
                 correction = round2.get(0);

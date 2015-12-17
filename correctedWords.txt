@@ -4,12 +4,12 @@ became
 packsaddle
 bankruptcy
 background
-[became, become]
+become
 badminton
 badminton
-[based, braised]
+based
 bake
-[balance, valence]
+balance
 bailout
 ballet
 bandwidth
@@ -17,9 +17,9 @@ bankruptcy
 banana
 bard
 beaches
-[bared, beard, eared, bearded, bewared, bleared]
+beard
 bestial
-[bated, belated, berated, bleated]
+bated
 early
 beautiful
 because
@@ -27,8 +27,8 @@ been
 before
 before
 beginner
-[begin, begging]
-[being, beefing, beeping]
+begin
+being
 become
 besiege
 berserk
