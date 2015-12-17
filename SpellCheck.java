@@ -162,6 +162,36 @@ public class SpellCheck{
         br.close();
     }
   }
+
+    public static int[][] readFileTo2DArray(String fileName) throws IOException{
+        File inFile = new File(filename);
+        Scanner in = new Scanner(inFile);
+        int[][] alph2d = new int[25][25];
+        in.useDelimiter("[/n]");
+        
+        String line = "";
+        int lineCount = 0;
+        
+        while (in.hasNextLine()) {
+            Scanner lineIn = new Scanner(line);
+            if(lineIn.hasNext()) {
+                String[] s = lineIn.nextLine().split(" ");
+                alph2d = new int[s.length];
+                for (int i = 0; i < s.length; i++) {
+                    alph2d[i] = new int[i];
+                    alph2d[0][i] = Integer.parseInt(s[i]);
+                }
+            }
+            for (int j = 1; j < alph2d.length; j++) {
+                String[] s = lineIn.nextLine().split(" ");
+                for (int i = 0; i < s.length; i++) {
+                    alph2d[j][i] = Integer.parseInt(s[i]);
+                }
+            }
+            return alph2d;
+        }
+    
+    
   public static Map<String,Integer> readFileToMap(String fileName) throws IOException {
     BufferedReader br = new BufferedReader(new FileReader(fileName));
     try {
