@@ -8,7 +8,7 @@ import java.io.*;
 public class SpellCheck{
   public static void main(String[]args){
     try{
-      String computer = "REPLACE";//please set this to "REPLACE" before pushing
+      String computer = "will";//please set this to "REPLACE" before pushing
       String pathDictionary = "";
       String pathWordFreq = "";
       String pathBadwords = "";
@@ -92,9 +92,25 @@ public class SpellCheck{
             }
             String correction = "";
             if (corrections.size()>1) {
+              ArrayList<String> round2 = new ArrayList<String>();
+              minDist = Integer.MAX_VALUE;
+              WordData currentData = new WordData(word);
               for (int var = 0; var<corrections.size();var++) {
-                String single = corrections.get(var);
-                correction = correction.concat(single+" ");
+                int dist = currentData.compareTo(corrections.get(var));
+                if (dist<minDist) {
+                  minDist=dist;
+                  round2.clear();
+                  round2.add(corrections.get(var));
+                }
+                else if (dist==minDist) {
+                  round2.add(corrections.get(var));
+                }
+              }
+              if (round2.size()>1) {
+                correction = round2.toString();
+              }
+              else{
+                correction = round2.get(0);
               }
             }
             else{
@@ -103,7 +119,6 @@ public class SpellCheck{
             writer.println(correction);
             System.out.println("Corrected word: "+correction);
             correctionFound=true;
-            //do stuff to correct
           }
 
           if (!correctionFound) {
