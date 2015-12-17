@@ -12,10 +12,12 @@ public class SpellCheck{
       String pathDictionary = "";
       String pathWordFreq = "";
       String pathBadwords = "";
+      String pathMatrix = "";
       if (computer.equalsIgnoreCase("will")) {
         pathDictionary = "/Users/william_burford/GitHub/SpellCheck/wordsEn.txt";
         pathWordFreq = "/Users/william_burford/GitHub/SpellCheck/wordsFreqFinal.txt";
         pathBadwords = "/Users/william_burford/GitHub/SpellCheck/badwords.txt";
+        pathMatrix = "/Users/william_burford/GitHub/SpellCheck/AlphabetMatrix.txt";
       }
       else{
         System.out.println("Error: Not a recognized computer");
@@ -39,6 +41,9 @@ public class SpellCheck{
           lengthLocations[len] = x;
         }
       }
+
+      int[][] costsMatrix = readFileTo2DArray(pathMatrix);
+      System.out.println(Arrays.toString(costsMatrix));
 
       ArrayList<String> misspelt = readFileToArrayList(pathBadwords);
       System.out.println("misspelt.size = "+misspelt.size());
@@ -168,10 +173,10 @@ public class SpellCheck{
         Scanner in = new Scanner(inFile);
         int[][] alph2d = new int[25][25];
         in.useDelimiter("[/n]");
-        
+
         String line = "";
         int lineCount = 0;
-        
+
         while (in.hasNextLine()) {
             Scanner lineIn = new Scanner(line);
             if(lineIn.hasNext()) {
@@ -190,8 +195,8 @@ public class SpellCheck{
             }
             return alph2d;
         }
-    
-    
+    }
+
   public static Map<String,Integer> readFileToMap(String fileName) throws IOException {
     BufferedReader br = new BufferedReader(new FileReader(fileName));
     try {
